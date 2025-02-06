@@ -7,26 +7,27 @@ public class Pointer : MonoBehaviour
     private Camera camera;
     private IPointerHandler pointerHandler;
 
-    private void Awake()
+    public void Init(IPointerHandler _pointerHandler)
     {
-        pointerHandler = GetComponent<IPointerHandler>();
+        pointerHandler = _pointerHandler;
         camera = GetComponent<Camera>();
+
+        StartCoroutine(Checking());
     }
 
-    private void Update()
-    {
-        Beacon();
-    }
-
-    private void Beacon()
+    IEnumerator Checking()
     {
         RaycastHit hit;
-        Ray ray = camera.ScreenPointToRay(Input.mousePosition);
-
-        if (Physics.Raycast(ray, out hit))
+        while (true)
         {
+            Ray ray = camera.ScreenPointToRay(Input.mousePosition);
 
-            pointerHandler.DoAction(hit.point);
+            if (Physics.Raycast(ray, out hit))
+            {
+                pointerHandler.DoAction(hit.point);
+            }
+
+            yield return new WaitForSeconds(0.1f);
         }
     }
 }

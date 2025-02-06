@@ -15,15 +15,24 @@ public class Unit : Entity, IUnit
         damage = _damage;
         onDied = _onDied;
         health = _unitHealth;
+
+        controller?.TurnOn();
+    }
+    public void Copy(Unit unit)
+    {
+        controller = unit.controller;
+        damage = unit.damage;
+        onDied = unit.onDied;
+        health = unit.health;
     }
     public override void GetDamage()
     {
-        damage.GetDamage();
+        damage?.GetDamage();
     }
 
     public override void OnDied()
     {
-        onDied.OnDied();
+        onDied?.OnDied();
     }
 
 }
