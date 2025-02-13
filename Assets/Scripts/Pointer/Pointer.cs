@@ -7,6 +7,8 @@ public class Pointer : MonoBehaviour
     private Camera camera;
     private IPointerHandler pointerHandler;
 
+    public static Vector3 pointerPos;
+
     public void Init(IPointerHandler _pointerHandler)
     {
         pointerHandler = _pointerHandler;
@@ -25,9 +27,10 @@ public class Pointer : MonoBehaviour
             if (Physics.Raycast(ray, out hit))
             {
                 pointerHandler.DoAction(hit.point);
+                pointerPos = hit.point;
             }
 
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(Time.deltaTime);
         }
     }
 }

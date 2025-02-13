@@ -6,15 +6,17 @@ public class Unit : Entity, IUnit
     private IDamageable damage;
     private IOnDied onDied;
     private IHealth health;
+    private IBuildSystem buildSystem;
 
     private float speed;
     
-    public void Init(IUnitController _controller, IDamageable _damage, IOnDied _onDied, IHealth _unitHealth)
+    public void Init(IUnitController _controller, IDamageable _damage, IOnDied _onDied, IHealth _unitHealth, IBuildSystem _buildSystem)
     {
         controller = _controller;
         damage = _damage;
         onDied = _onDied;
         health = _unitHealth;
+        buildSystem = _buildSystem;
 
         controller?.TurnOn();
     }

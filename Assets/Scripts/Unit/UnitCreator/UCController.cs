@@ -3,28 +3,19 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 public class UCController : MonoBehaviour
-{
-    List<GameObject > list = new List<GameObject>();
-    
+{   
     GameObject unitModel;
     AbstractUnitCreator controller;
     Unit unit;
 
     int a = 0;
-    public void Init()
-    {
 
-    }
-
-    public void CreateUnit(UnitType type, Vector3 pointerPos)
+    public GameObject CreateUnit(UnitType type)
     {
         switch (type)
         {
             case UnitType.Maksim:
-                if (controller==null)
-                {
-                    controller = new UCMaksim();
-                }
+                if (controller==null) controller = new UCMaksim();
                 break;
             case UnitType.Rei:
                 break;
@@ -32,9 +23,7 @@ public class UCController : MonoBehaviour
                 break;
         }
 
-        
-
-        unitModel = controller.CreateModel(pointerPos);
+        unitModel = controller.CreateModel();
 
         unit = controller.CreateUnit(unitModel);
 
@@ -43,6 +32,6 @@ public class UCController : MonoBehaviour
         unitModel.GetComponent<Unit>().Copy(unit);
 
         a++;
-        return;
+        return unitModel;
     }
 }

@@ -4,5 +4,5 @@ abstract public class AbstractUnitCreator : MonoBehaviour
 {
     abstract public Unit CreateUnit(GameObject parentObj);
 
-    abstract public GameObject CreateModel(Vector3 pos);
+    abstract public GameObject CreateModel();
 }
