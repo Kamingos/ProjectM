@@ -17,6 +17,11 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 8c1864d3ec6235b4cb757c52a202290f
   m_SerializeEntries:
+  - m_GUID: 9886578a298e64941bda3eebe5fc1bcc
+    m_Address: Assets/Models/Textures/d8c637d6-f500-44a3-bf33-c7896b95f8a0.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: b1a7102a2b50e494eb05323c4409ac2f
     m_Address: Assets/Models/Textures/maksimos texture2.png
     m_ReadOnly: 0

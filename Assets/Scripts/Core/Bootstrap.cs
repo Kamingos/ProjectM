@@ -5,15 +5,17 @@ using UnityEngine;
 public class Bootstrap : MonoBehaviour
 {
     // Сериализуемые
-    [SerializeField] Transform CoursorPos;
+    [SerializeField] private Transform CoursorPos;
     [SerializeField] private Pointer pointer;
     [SerializeField] private GameController gameController;
+    [SerializeField] private GameUIView gameUIView;
 
     // Создавааемые
     private PointerHandler pointHandler;
     private UCController UCC;
     private BuildController buildController;
     private UnitController unitController;
+    private GameUIController gameUIController;
 
 
     private void Awake()
@@ -32,8 +34,15 @@ public class Bootstrap : MonoBehaviour
         unitController = new UnitController();
         unitController.Init(buildController);
 
+        // Game UI-->
+        gameUIView.Init();
+
+        gameUIController = new GameUIController();
+        gameUIController.Init(gameUIView);
+        // Game UI<--
+
         // #4
-        gameController.Init(unitController);
+        gameController.Init(unitController, gameUIController);
 
         // #5
         pointHandler = new PointerHandler();

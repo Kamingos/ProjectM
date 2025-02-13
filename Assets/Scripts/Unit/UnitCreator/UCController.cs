@@ -18,6 +18,7 @@ public class UCController : MonoBehaviour
                 if (controller==null) controller = new UCMaksim();
                 break;
             case UnitType.Rei:
+                if (controller == null) controller = new UCRei();
                 break;
             default:
                 break;
