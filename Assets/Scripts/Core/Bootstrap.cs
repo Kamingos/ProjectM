@@ -6,9 +6,12 @@ public class Bootstrap : MonoBehaviour
 {
     // Сериализуемые
     [SerializeField] private Transform CoursorPos;
+    [SerializeField] private Transform unitsParent;
+
     [SerializeField] private Pointer pointer;
     [SerializeField] private GameController gameController;
     [SerializeField] private GameUIView gameUIView;
+    [SerializeField] private MapController mapController;
 
     // Создавааемые
     private PointerHandler pointHandler;
@@ -21,10 +24,10 @@ public class Bootstrap : MonoBehaviour
     private void Awake()
     {
         // #0
-        GameStateMachine.SetDefaultMode();
 
         // #1
         UCC = new UCController();
+        UCC.Init(unitsParent);
 
         // #2
         buildController = new BuildController();
@@ -41,8 +44,12 @@ public class Bootstrap : MonoBehaviour
         gameUIController.Init(gameUIView);
         // Game UI<--
 
+        // Map -->
+        //mapController.Init(null);
+        // Map <--
+
         // #4
-        gameController.Init(unitController, gameUIController);
+        gameController.Init(unitController, gameUIController, mapController);
 
         // #5
         pointHandler = new PointerHandler();
@@ -50,5 +57,8 @@ public class Bootstrap : MonoBehaviour
 
         // #6
         pointer.Init(pointHandler);
+
+        // #end
+        GameStateMachine.SetDefaultMode();
     }
 }

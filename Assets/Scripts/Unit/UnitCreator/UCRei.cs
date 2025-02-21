@@ -1,13 +1,22 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.AI;
 
 public class UCRei : AbstractUnitCreator
 {
-    string modelPath = "Assets/Models/PlushRei.fbx";
+    string modelPath = "PlushRei";
+    string animController = "Test";
+
+    // кэширую для удобства
+    Rigidbody rb;
+    BoxCollider bc;
+    NavMeshAgent nma;
+    Animator animator;
 
     public override Unit CreateUnit(GameObject parentObj)
     {
-        SpinController sc = parentObj.AddComponent<SpinController>();
+        TestController sc = parentObj.AddComponent<TestController>();
         UnitBuildController bc = parentObj.AddComponent<UnitBuildController>();
         //...
 
@@ -20,23 +29,37 @@ public class UCRei : AbstractUnitCreator
 
     public override GameObject CreateModel()
     {
-        var handle = Addressables.LoadAssetAsync<GameObject>(modelPath);
+        var modelHandle = Addressables.LoadAssetAsync<GameObject>(modelPath);
+        var AnimHandle = Addressables.LoadAssetAsync<RuntimeAnimatorController>(this.animController);
 
-        handle.WaitForCompletion();
+        modelHandle.WaitForCompletion();
+        AnimHandle.WaitForCompletion();
 
-        GameObject model = Instantiate(handle.Result, Vector3.zero, Quaternion.identity);
+        GameObject model = Instantiate(modelHandle.Result, Vector3.zero, Quaternion.identity);
+        RuntimeAnimatorController animController = AnimHandle.Result;
 
         // добавление компонентов
-        model.AddComponent<Rigidbody>();
-        model.AddComponent<BoxCollider>();
+        rb =model.AddComponent<Rigidbody>();
+        bc = model.AddComponent<BoxCollider>();
+        nma = model.AddComponent<NavMeshAgent>();
+        animator = model.transform.GetChild(0).AddComponent<Animator>();
 
         // настройки RB
-        model.GetComponent<Rigidbody>().freezeRotation = true;
-        model.GetComponent<Rigidbody>().isKinematic = true;
+        rb.freezeRotation = true;
+        rb.isKinematic = true;
+
+        // настройки NavMeshAgent
+        nma.speed = 10f;
+        nma.stoppingDistance = 0.2f;
+        nma.radius = 1f;
+        nma.height = 5f;
 
         // настройки BoxCollider
-        model.GetComponent<BoxCollider>().size = new Vector3(2, 5, 2);
-        model.GetComponent<BoxCollider>().center = new Vector3(0, 2.5f, 0);
+        bc.size = new Vector3(2, 5, 2);
+        bc.center = new Vector3(0, 2.5f, 0);
+
+        // настройки Animator
+        animator.runtimeAnimatorController = animController;
 
         // прочее
         model.layer = 2;

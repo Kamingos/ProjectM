@@ -3,7 +3,7 @@ using UnityEngine.AddressableAssets;
 
 public class UCMaksim : AbstractUnitCreator
 {
-    string modelPath = "Assets/Models/maxBone.fbx";
+    string modelPath = "maxBone";
 
     public override Unit CreateUnit(GameObject parentObj)
     {

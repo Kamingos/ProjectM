@@ -6,11 +6,13 @@ public class GameController : MonoBehaviour
 {
     private UnitController unitController;
     private GameUIController gameUIController;
+    private MapController mapController;
 
-    public void Init(UnitController _unitController, GameUIController _gameUIController)
+    public void Init(UnitController _unitController, GameUIController _gameUIController, MapController _mapController)
     {
         unitController = _unitController;
         gameUIController = _gameUIController;
+        mapController = _mapController;
 
         gameUIController.OnBtnPressed += CreateUnit;
     }
@@ -26,6 +28,17 @@ public class GameController : MonoBehaviour
             if (Input.GetMouseButtonDown(3))
             {
                 unitController.ClearUnits();
+            }
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                GameStateMachine.SetGameMode();
+            }
+        }
+        else if (GameStateMachine.CurrentGameMode == GameMode.Game)
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                GameStateMachine.SetDefaultMode();
             }
         }
     }

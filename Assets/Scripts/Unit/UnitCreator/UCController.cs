@@ -7,8 +7,14 @@ public class UCController : MonoBehaviour
     GameObject unitModel;
     AbstractUnitCreator controller;
     Unit unit;
+    Transform unitsParent;
 
     int a = 0;
+
+    public void Init(Transform _unitsParent)
+    {
+        unitsParent = _unitsParent;
+    }
 
     public GameObject CreateUnit(UnitType type)
     {
@@ -31,6 +37,8 @@ public class UCController : MonoBehaviour
         unitModel.AddComponent<Unit>();
 
         unitModel.GetComponent<Unit>().Copy(unit);
+
+        unitModel.transform.SetParent(unitsParent);
 
         a++;
         return unitModel;

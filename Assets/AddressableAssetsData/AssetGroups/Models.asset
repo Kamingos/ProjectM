@@ -18,14 +18,16 @@ MonoBehaviour:
   m_GUID: ee51e7a17eb496f4ca5ef8ace9747fc0
   m_SerializeEntries:
   - m_GUID: 4e6db359f3cec3b428681bc8c35e69f4
-    m_Address: Assets/Models/maxBone.fbx
+    m_Address: maxBone
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - Model
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d376e0500a3d5c44a889326b09f5eb30
-    m_Address: Assets/Models/Rei.fbx
+    m_Address: PlushRei
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - Model
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: cc1c3a1990cf9a24a814cdfeb93ec864, type: 2}
