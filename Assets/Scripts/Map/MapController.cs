@@ -8,13 +8,13 @@ public class MapController : MonoBehaviour
     private IMapGenerator mapGenerator;
     public static iMapData mapData { get; private set; }
 
-    [SerializeField] private GameObject MapObj;
-
     public void Init(IMapGenerator _mapGenerator, iMapData _mapData)
     {
         mapGenerator = _mapGenerator;
 
         mapData = _mapData;
+
+        mapData.Init(mapGenerator.MapGenerate());
 
         GameStateMachine.GameModeChanged += StateMachineHandler;
     }

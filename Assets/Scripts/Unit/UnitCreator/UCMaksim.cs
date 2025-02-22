@@ -5,15 +5,17 @@ public class UCMaksim : AbstractUnitCreator
 {
     string modelPath = "maxBone";
 
-    public override Unit CreateUnit(GameObject parentObj)
+    public override Unit CreateUnit(GameObject parentObj, UnitType unitType)
     {
         SpinController sc = parentObj.AddComponent<SpinController>();
         UnitBuildController bc = parentObj.AddComponent<UnitBuildController>();
+
+        SideController sdc = parentObj.AddComponent<SideController>();
         //...
 
         Unit unit = new Unit();
 
-        unit.Init(_controller: sc, _damage: null, _onDied: null, _unitHealth: null, _buildSystem: bc);
+        unit.Init(_controller: sc, _damage: null, _onDied: null, _unitHealth: null, _buildSystem: bc, _sideController: sdc, _type: unitType);
 
         return unit;
     }

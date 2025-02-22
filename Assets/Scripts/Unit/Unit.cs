@@ -6,18 +6,26 @@ public class Unit : Entity, IUnit
     private IDamageable damage;
     private IOnDied onDied;
     private IHealth health;
-    private IBuildSystem buildSystem;
+    private IBuildSystem buildController;
+    private ISideDependence sideController;
 
-    private float speed;
-    
-    public void Init(IUnitController _controller, IDamageable _damage, IOnDied _onDied, IHealth _unitHealth, IBuildSystem _buildSystem)
+    public UnitType type { get; private set; }
+
+    public void Init(IUnitController _controller, IDamageable _damage, IOnDied _onDied,IHealth _unitHealth,
+                     IBuildSystem _buildSystem, ISideDependence _sideController, UnitType _type)
     {
         controller = _controller;
         damage = _damage;
         onDied = _onDied;
         health = _unitHealth;
-        buildSystem = _buildSystem;
+        buildController = _buildSystem;
+        sideController = _sideController;
+        type = _type;
 
+        buildController.BtnPressEvent += (_) => { if (_) { sideController.SetSide(_); } };
+
+        buildController?.TurnOn();
+        sideController?.TurnOn();
         controller?.TurnOn();
     }
     public void Copy(Unit unit)

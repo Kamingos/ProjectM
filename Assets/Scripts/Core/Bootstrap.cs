@@ -19,6 +19,8 @@ public class Bootstrap : MonoBehaviour
     private BuildController buildController;
     private UnitController unitController;
     private GameUIController gameUIController;
+    private MapData mapData;
+    private MapGenerator mapGenerator;
 
 
     private void Awake()
@@ -45,7 +47,11 @@ public class Bootstrap : MonoBehaviour
         // Game UI<--
 
         // Map -->
-        //mapController.Init(null);
+
+        mapData = new MapData();
+        mapGenerator = new MapGenerator();
+
+        mapController.Init(mapGenerator, mapData);
         // Map <--
 
         // #4

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GameController : MonoBehaviour
@@ -15,6 +13,11 @@ public class GameController : MonoBehaviour
         mapController = _mapController;
 
         gameUIController.OnBtnPressed += CreateUnit;
+
+        // доп часть
+        var cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        cube.GetComponent<MeshRenderer>().material.color = new Color(0, 1, 0);
+        cube.transform.position = MapController.mapData.GetMapCenter();
     }
 
     private void Update()

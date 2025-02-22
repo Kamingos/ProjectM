@@ -22,8 +22,8 @@ public class MapData : MonoBehaviour, iMapData
         mapObj.GetComponent<NavMeshSurface>().enabled = true;
     }
 
-    public Vector3 GetMapPosition()
+    public Vector3 GetMapCenter()
     {
-        return mapObj.transform.position;
+        return mapObj.GetComponent<TerrainCollider>().bounds.size/2;
     }
 }

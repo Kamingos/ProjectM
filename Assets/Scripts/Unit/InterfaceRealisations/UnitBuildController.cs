@@ -1,12 +1,9 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class UnitBuildController : MonoBehaviour, IBuildSystem
 {
-    private bool isBuilded = false;
 
     public event Action<bool> BtnPressEvent;
 
@@ -15,22 +12,32 @@ public class UnitBuildController : MonoBehaviour, IBuildSystem
         BtnPressEvent = null;
     }
 
-    private void Update()
+    public void TurnOn()
     {
-        if (!isBuilded)
+        StartCoroutine(Process());
+    }
+
+    public
+
+    IEnumerator Process()
+    {
+
+        while (true)
         {
             transform.position = Pointer.pointerPos;
 
             if (Input.GetMouseButtonDown(0))
             {
                 BtnPressEvent.Invoke(true);
-                isBuilded = true;
+                StopAllCoroutines();
             }
             if (Input.GetMouseButtonDown(1))
             {
                 BtnPressEvent.Invoke(false);
-                isBuilded = true;
+                StopAllCoroutines();
             }
+
+            yield return new WaitForSeconds(Time.deltaTime);
         }
     }
 }

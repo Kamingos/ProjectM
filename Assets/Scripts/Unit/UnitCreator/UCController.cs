@@ -32,7 +32,7 @@ public class UCController : MonoBehaviour
 
         unitModel = controller.CreateModel();
 
-        unit = controller.CreateUnit(unitModel);
+        unit = controller.CreateUnit(unitModel, type);
 
         unitModel.AddComponent<Unit>();
 

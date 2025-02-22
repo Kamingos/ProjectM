@@ -6,5 +6,5 @@ public interface iMapData
 
     public void TurnOn();
     public void TurnOff();
-    public Vector3 GetMapPosition();
+    public Vector3 GetMapCenter();
 }

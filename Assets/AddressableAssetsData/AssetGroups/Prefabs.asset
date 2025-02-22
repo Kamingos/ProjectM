@@ -10,28 +10,28 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: Textures
+  m_Name: Prefabs
   m_EditorClassIdentifier: 
-  m_GroupName: Textures
+  m_GroupName: Prefabs
   m_Data:
     m_SerializedData: []
-  m_GUID: 8c1864d3ec6235b4cb757c52a202290f
+  m_GUID: b81ca3db78559dc419d7cd493aa73ac6
   m_SerializeEntries:
-  - m_GUID: 9886578a298e64941bda3eebe5fc1bcc
-    m_Address: d8c637d6-f500-44a3-bf33-c7896b95f8a0
+  - m_GUID: 8963b8ccff42c874cb8ff75339b219c3
+    m_Address: PlushRei
     m_ReadOnly: 0
     m_SerializedLabels:
-    - Texture
+    - prefab
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: b1a7102a2b50e494eb05323c4409ac2f
-    m_Address: maksimos texture2
+  - m_GUID: f9fb876f1a897224ca1c29cbc0e1ed72
+    m_Address: maxBone
     m_ReadOnly: 0
     m_SerializedLabels:
-    - Texture
+    - prefab
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: cc1c3a1990cf9a24a814cdfeb93ec864, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: 948e4e7f408d8d2469ab27c97f059e0c, type: 2}
-    - {fileID: 11400000, guid: 0288b0e466faa654eac7ddd64d878b84, type: 2}
+    - {fileID: 11400000, guid: 728a6e8ad84f2124ca9c04f6757ca7d7, type: 2}
+    - {fileID: 11400000, guid: 3528a84201ecbac41923b2dddd83d578, type: 2}
