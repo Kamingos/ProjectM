@@ -2,12 +2,12 @@ using UnityEngine;
 
 public class Unit : Entity, IUnit
 {
-    private IUnitController controller;
-    private IDamageable damage;
-    private IOnDied onDied;
-    private IHealth health;
-    private IBuildSystem buildController;
-    private ISideDependence sideController;
+    public IUnitController controller{ get; private set; }
+    public IDamageable damage { get; private set; }
+    public IOnDied onDied { get; private set; }
+    public IHealth health { get; private set; }
+    public IBuildSystem buildController { get; private set; }
+    public ISideDependence sideController { get; private set; }
 
     public UnitType type { get; private set; }
 

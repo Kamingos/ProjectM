@@ -19,8 +19,10 @@ public class TestController : MonoBehaviour, IUnitController
         switch (gm)
         {
             case GameMode.Game:
+                navAgent.enabled = true;
                 break;
             case GameMode.Default:
+                gameObject.GetComponent<IBuildSystem>().SetStartPos();
                 break;
         }
     }

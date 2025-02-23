@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 
@@ -7,9 +6,14 @@ public class SideController : MonoBehaviour, ISideDependence
     private Material material;
     private string side = "";
 
+    private bool flag = true;
+
+    public Color colorBlue { get; private set; } = new Color(0.6f, 0.6f, 1);
+    public Color colorGreen { get; private set; } = new Color(0.6f, 1, 0.6f);
+
     public void StopUpdate()
     {
-        StopAllCoroutines();
+        flag = false;
     }
 
     public void TurnOn()
@@ -19,9 +23,10 @@ public class SideController : MonoBehaviour, ISideDependence
         StartCoroutine(process());
     }
 
+
     public void SetSide(bool var)
     {
-        if (var)
+        if (var && flag)
         {
             if (side == "")
             {
@@ -33,6 +38,7 @@ public class SideController : MonoBehaviour, ISideDependence
                 {
                     side = "Red";
                 }
+                flag = false;
             }
         }
     }
@@ -44,17 +50,20 @@ public class SideController : MonoBehaviour, ISideDependence
 
     IEnumerator process()
     {
-        while (true)
+        while (flag)
         {
-            if (transform.position.x <= MapController.mapData.GetMapCenter().x)
+            if (UnitBuildController.canBuild)
             {
-                material.color = new Color(0.6f, 0.6f, 1);
-            }
-            else
-            {
-                material.color = new Color(1, 0.6f, 0.6f);
-            }
+                if (transform.position.x <= MapController.mapData.GetMapCenter().x)
+                {
+                    material.color = colorBlue;
+                }
+                else
+                {
+                    material.color = colorGreen;
+                }
 
+            }
             yield return new WaitForSeconds(Time.deltaTime);
         }
     }

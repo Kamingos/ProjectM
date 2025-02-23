@@ -30,7 +30,7 @@ public class Pointer : MonoBehaviour
         {
             Ray ray = camera.ScreenPointToRay(Input.mousePosition);
 
-            if (Physics.Raycast(ray, out hit))
+            if (Physics.Raycast(ray, out hit, 2<<10,0b1))
             {
                 pointerHandler.DoAction(hit.point);
                 pointerPos = hit.point;
