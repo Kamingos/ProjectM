@@ -32,11 +32,11 @@ public class SideController : MonoBehaviour, ISideDependence
             {
                 if (transform.position.x <= MapController.mapData.GetMapCenter().x)
                 {
-                    side = "Blue";
+                    side = "Left";
                 }
                 else
                 {
-                    side = "Red";
+                    side = "Right";
                 }
                 flag = false;
             }

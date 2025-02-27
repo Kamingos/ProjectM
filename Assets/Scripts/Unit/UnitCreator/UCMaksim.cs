@@ -15,7 +15,7 @@ public class UCMaksim : AbstractUnitCreator
 
         Unit unit = new Unit();
 
-        unit.Init(_controller: sc, _damage: null, _onDied: null, _unitHealth: null, _buildSystem: bc, _sideController: sdc, _type: unitType);
+        unit.Init(_controller: sc, _damage: null, _deathCtontroller: null, _unitHealth: null, _buildSystem: bc, _sideController: sdc, _type: unitType);
 
         return unit;
     }

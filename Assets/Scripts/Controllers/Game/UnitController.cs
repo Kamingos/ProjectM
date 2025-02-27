@@ -5,15 +5,29 @@ public class UnitController : MonoBehaviour
 {
     private BuildController buildController;
 
-    private List<GameObject> units;
+    public static List<GameObject> UnitsLeft { get; private set; }
+    public static List<GameObject> UnitsRight { get; private set; }
+
+    public static TargetSearcher TargetSearcher;
 
     public void Init(BuildController _buildController)
     {
         buildController = _buildController;
 
-        units = new List<GameObject>();
+        UnitsLeft = new List<GameObject>();
+        UnitsRight = new List<GameObject>();
 
-        buildController.ReturnUnitEvent += (_) => { units.Add(_); };
+        TargetSearcher = new TargetSearcher();
+
+        buildController.ReturnUnitEvent += (GameObject obj, string side) => 
+        {
+            if (side == "Left") UnitsLeft.Add(obj);
+            else if (side == "Right") UnitsRight.Add(obj);
+            else
+            {
+                Debug.LogError("передача неверной стороны в аргументе --> " + side);
+            }
+        };
         buildController.CreateUnitEvent += (_) => { CreateUnit(_); }; 
     }
     
@@ -24,11 +38,17 @@ public class UnitController : MonoBehaviour
 
     public void ClearUnits()
     {
-        foreach (var item in units)
+        foreach (var item in UnitsLeft)
         {
             Destroy(item);
             
         }
-        units.Clear();
+        UnitsLeft.Clear();
+        foreach (var item in UnitsRight)
+        {
+            Destroy(item);
+
+        }
+        UnitsRight.Clear();
     }
 }

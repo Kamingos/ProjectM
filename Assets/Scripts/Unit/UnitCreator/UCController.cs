@@ -16,6 +16,7 @@ public class UCController : MonoBehaviour
         unitsParent = _unitsParent;
     }
 
+    // TODO класс создаётся каждую итерацию. надо исправить
     public GameObject CreateUnit(UnitType type)
     {
         switch (type)

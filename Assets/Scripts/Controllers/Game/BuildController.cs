@@ -4,7 +4,7 @@ using UnityEngine;
 public class BuildController : MonoBehaviour
 {
     private UCController _UCController;
-    public event Action<GameObject> ReturnUnitEvent;
+    public event Action<GameObject, string> ReturnUnitEvent;
     public event Action<UnitType> CreateUnitEvent;
 
     private GameObject unitTemp;
@@ -25,7 +25,7 @@ public class BuildController : MonoBehaviour
             unitTemp.GetComponent<UnitBuildController>().ClearEvent();
             if (answ)
             {
-                ReturnUnitEvent.Invoke(unitTemp);
+                ReturnUnitEvent.Invoke(unitTemp, unitTemp.GetComponent<SideController>().GetSide());
                 CreateUnitEvent.Invoke(unitType);
             }
             else

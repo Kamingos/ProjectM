@@ -16,14 +16,22 @@ public class UCRei : AbstractUnitCreator
 
     public override Unit CreateUnit(GameObject parentObj, UnitType unitType)
     {
-        TestController sc = parentObj.AddComponent<TestController>();
+        GroundUnitBehaviour gub = parentObj.AddComponent<GroundUnitBehaviour>();
+
         UnitBuildController bc = parentObj.AddComponent<UnitBuildController>();
         SideController sdc = parentObj.AddComponent<SideController>();
+
+        HealthController healthController = parentObj.AddComponent<HealthController>();
+        HealthBarController hbc = parentObj.AddComponent<HealthBarController>();
+        DeathController dc = parentObj.AddComponent<DeathController>();
+
+        healthController.Init(100f,hbc);
+        gub.Init(2f, 10f, 1.5f);
         //...
 
         Unit unit = new Unit();
 
-        unit.Init(_controller: sc, _damage: null, _onDied: null, _unitHealth: null, _buildSystem: bc, _sideController: sdc, _type: unitType);
+        unit.Init(_controller: gub, _damage: null, _deathCtontroller: dc, _unitHealth: healthController, _buildSystem: bc, _sideController: sdc, _type: unitType);
 
         return unit;
     }

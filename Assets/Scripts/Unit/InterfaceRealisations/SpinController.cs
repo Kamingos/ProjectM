@@ -5,6 +5,20 @@ using UnityEngine;
 
 public class SpinController : MonoBehaviour, IUnitController
 {
+    public void Init(float _attackRange, float _dammageValue, float _attackSpeed)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void OnDied()
+    {
+        
+    }
+
+    public void TurnOff()
+    {
+        
+    }
 
     public void TurnOn()
     {

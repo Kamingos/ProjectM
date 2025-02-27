@@ -53,7 +53,7 @@ public class UnitBuildController : MonoBehaviour, IBuildSystem
 
     private bool CollidersChecking()
     {
-        if (Physics.OverlapSphere(transform.position, boxCollider.size.x * 0.75f, 1 << 2).Length > 1)
+        if (Physics.OverlapSphere(transform.position, boxCollider.size.x * 0.75f, 1 << 2)?.Length > 1)
         {
             canBuild = false;
             material.color = colorRed;
