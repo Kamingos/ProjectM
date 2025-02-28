@@ -1,15 +1,15 @@
 using System.Collections;
 using UnityEngine;
 
-public class SideController : MonoBehaviour, ISideDependence
+public class SideController : MonoBehaviour, ISideController
 {
     private Material material;
     private string side = "";
 
     private bool flag = true;
 
-    public Color colorBlue { get; private set; } = new Color(0.6f, 0.6f, 1);
-    public Color colorGreen { get; private set; } = new Color(0.6f, 1, 0.6f);
+    public Color colorLeft { get; private set; } = new Color(0.5f, 0.7f, 1);
+    public Color colorRight { get; private set; } = new Color(1f, 0.7f, 0.5f);
 
     public void StopUpdate()
     {
@@ -20,13 +20,13 @@ public class SideController : MonoBehaviour, ISideDependence
     {
         material = GetComponentInChildren<SkinnedMeshRenderer>().material;
 
-        StartCoroutine(process());
+        //StartCoroutine(process());
     }
 
 
-    public void SetSide(bool var)
+    public void SetSide()
     {
-        if (var && flag)
+        //if (flag)
         {
             if (side == "")
             {
@@ -38,7 +38,7 @@ public class SideController : MonoBehaviour, ISideDependence
                 {
                     side = "Right";
                 }
-                flag = false;
+                //flag = false;
             }
         }
     }
@@ -48,25 +48,24 @@ public class SideController : MonoBehaviour, ISideDependence
         return side;
     }
 
-    IEnumerator process()
+    //IEnumerator process()
+    private void Update()
     {
-        while (flag)
+        if (!flag) return;
+
+        if (UnitBuildController.canBuild)
         {
-            if (UnitBuildController.canBuild)
+            if (transform.position.x <= MapController.mapData.GetMapCenter().x)
             {
-                if (transform.position.x <= MapController.mapData.GetMapCenter().x)
-                {
-                    material.color = colorBlue;
-                }
-                else
-                {
-                    material.color = colorGreen;
-                }
-
+                material.color = colorLeft;
             }
-            yield return new WaitForSeconds(Time.deltaTime);
+            else
+            {
+                material.color = colorRight;
+            }
+
         }
+        //yield return new WaitForSeconds(Time.deltaTime);
+
     }
-
-
 }

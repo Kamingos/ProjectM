@@ -1,7 +1,7 @@
-public interface ISideDependence
+public interface ISideController
 {
     public void TurnOn();
-    public void SetSide(bool var);
+    public void SetSide();
     public string GetSide();
     public void StopUpdate();
 }

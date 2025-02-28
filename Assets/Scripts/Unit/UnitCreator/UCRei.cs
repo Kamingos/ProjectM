@@ -25,13 +25,14 @@ public class UCRei : AbstractUnitCreator
         HealthBarController hbc = parentObj.AddComponent<HealthBarController>();
         DeathController dc = parentObj.AddComponent<DeathController>();
 
-        healthController.Init(100f,hbc);
-        gub.Init(2f, 10f, 1.5f);
+        healthController.Init(100f,hbc,null, dc);
+        gub.Init(5f, 10f, 1.5f);
+        bc.Init(sdc);
         //...
 
         Unit unit = new Unit();
 
-        unit.Init(_controller: gub, _damage: null, _deathCtontroller: dc, _unitHealth: healthController, _buildSystem: bc, _sideController: sdc, _type: unitType);
+        unit.Init(_controller: gub, _unitHealth: healthController, _buildSystem: bc, _type: unitType);
 
         return unit;
     }
@@ -48,20 +49,23 @@ public class UCRei : AbstractUnitCreator
         RuntimeAnimatorController animController = AnimHandle.Result;
 
         // добавление компонентов
-        rb =model.AddComponent<Rigidbody>();
+        //rb =model.AddComponent<Rigidbody>();
         bc = model.AddComponent<BoxCollider>();
         nma = model.AddComponent<NavMeshAgent>();
         animator = model.transform.GetChild(0).AddComponent<Animator>();
 
         // настройки RB
-        rb.freezeRotation = true;
-        rb.isKinematic = true;
+        //rb.freezeRotation = true;
+        //rb.isKinematic = true;
 
         // настройки NavMeshAgent
         nma.speed = 10f;
-        nma.stoppingDistance = 0.2f;
         nma.radius = 1f;
+        nma.stoppingDistance = nma.radius + 0.2f;
         nma.height = 5f;
+        nma.angularSpeed = 180f;
+        nma.acceleration = 50f;
+
 
         // настройки BoxCollider
         bc.size = new Vector3(2, 5, 2);

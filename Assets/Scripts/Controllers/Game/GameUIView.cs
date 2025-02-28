@@ -20,7 +20,7 @@ public class GameUIView : MonoBehaviour
         {
             int id = i;
             btns[i].onClick.AddListener(() => { 
-                Debug.Log(i); 
+                //Debug.Log(i); 
                 OnBtnPressed.Invoke(id);
             });
         }

@@ -4,15 +4,20 @@ using UnityEngine;
 public class HealthController : MonoBehaviour, IHealth
 {
     private IHealthBar healthBar;
-    private float health;
+    private IDamageable damageController;
+    private IDeathController deathController;
 
-    public event Action OnUnitDeath;
+    public float health;
     public float MaxHP { get; private set; }
     public float Health
     {
         get => health; set
         {
-            if (value < 0) { health = 0; OnUnitDeath?.Invoke(); }
+
+            if (value <= 0) 
+            { 
+                health = 0; deathController.OnDied(); 
+            }
 
             else if (value > MaxHP) health = MaxHP;
 
@@ -22,11 +27,13 @@ public class HealthController : MonoBehaviour, IHealth
         }
     }
 
-    public void Init(float _MaxHP, IHealthBar _healthBar)
+    public void Init(float _MaxHP, IHealthBar _healthBar, IDamageable _damage, IDeathController _deathController)
     {
         MaxHP = _MaxHP;
         Health = MaxHP;
 
         healthBar = _healthBar;
+        damageController = _damage;
+        deathController = _deathController;
     }
 }

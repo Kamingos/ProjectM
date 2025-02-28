@@ -4,6 +4,7 @@ using UnityEngine.AI;
 abstract public class AbstractUnitBehaviour : MonoBehaviour, IUnitController
 {
     protected NavMeshAgent navAgent;
+
     protected float attackRange;
     protected float dammageValue;
     protected float attackSpeed;
@@ -19,7 +20,25 @@ abstract public class AbstractUnitBehaviour : MonoBehaviour, IUnitController
         GameStateMachine.GameModeChanged += GameStateMachineHandler;
     }
 
-    abstract protected void GameStateMachineHandler(GameMode gm);
+    protected void GameStateMachineHandler(GameMode gm)
+    {
+        switch (gm)
+        {
+            case GameMode.Game:
+                navAgent.enabled = true;
+                TurnOn();
+                break;
+            case GameMode.Default:
+                navAgent.enabled = false;
+                TurnOff();
+                break;
+        }
+    }
+
+    abstract protected void TurnOn();
+
+
+    abstract protected void TurnOff();
 
     virtual public void OnDied()
     {
@@ -32,6 +51,8 @@ abstract public class AbstractUnitBehaviour : MonoBehaviour, IUnitController
         return false;
     }
 
-    abstract protected void OnDestroy();
-
+    protected void OnDestroy()
+    {
+        GameStateMachine.GameModeChanged -= GameStateMachineHandler;
+    }
 }

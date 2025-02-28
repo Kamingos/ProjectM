@@ -1,15 +1,16 @@
 using System;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class UnitBuildController : MonoBehaviour, IBuildSystem
 {
+    ISideController sideController;
+
     public event Action<bool> BtnPressEvent;
     
     private Material material;
     private BoxCollider boxCollider;
 
-    Color colorRed = new Color(1, 0.4f, 0.4f);
+    Color colorRed = new Color(1, 0f, 0f);
 
     public Vector3 StartPos { get; private set; }
     public static bool canBuild { get; private set; } = true;
@@ -21,33 +22,37 @@ public class UnitBuildController : MonoBehaviour, IBuildSystem
         BtnPressEvent = null;
     }
 
-    public void TurnOn()
+    public void Init(ISideController _sideController) 
     {
         material = GetComponentInChildren<SkinnedMeshRenderer>().material;
         boxCollider = GetComponent<BoxCollider>();
-        //StartCoroutine(Process());
+
+        sideController = _sideController;
+
+        sideController.TurnOn();
     }
 
     void Update()
     {
-        if (!builded)
-        {
-            transform.position = Pointer.pointerPos;
+        if (builded) return;
 
-            if (CollidersChecking())
+        transform.position = Pointer.pointerPos;
+
+        if (CollidersChecking())
+        {
+            if (Input.GetMouseButtonDown(0))
             {
-                if (Input.GetMouseButtonDown(0))
-                {
-                    BtnPressEvent.Invoke(true);
-                    builded = true;
-                    StartPos = transform.position;
-                }
+                sideController.SetSide();
+                BtnPressEvent.Invoke(true);
+                builded = true;
+
+                StartPos = transform.position;
             }
-            if (Input.GetMouseButtonDown(1))
-            {
-                BtnPressEvent.Invoke(false);
-                builded = false;
-            }
+        }
+        if (Input.GetMouseButtonDown(1))
+        {
+            BtnPressEvent.Invoke(false);
+            builded = false;
         }
     }
 
@@ -57,7 +62,7 @@ public class UnitBuildController : MonoBehaviour, IBuildSystem
         {
             canBuild = false;
             material.color = colorRed;
-            
+            if (sideController.GetSide() != "") sideController.SetSide();
             return false;
         }
 
@@ -67,7 +72,7 @@ public class UnitBuildController : MonoBehaviour, IBuildSystem
 
     public void SetStartPos()
     {
-        gameObject.GetComponent<NavMeshAgent>().enabled = false;
+        //gameObject.GetComponent<NavMeshAgent>().enabled = false;
         transform.position = StartPos;
     }
 }

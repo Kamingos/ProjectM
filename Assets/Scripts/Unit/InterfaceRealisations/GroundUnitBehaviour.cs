@@ -5,33 +5,18 @@ using UnityEngine.AI;
 
 public class GroundUnitBehaviour : AbstractUnitBehaviour
 {
-    GameObject target;
-    HealthController targetHealth;
+    private GameObject target;
+    private HealthController targetHealth;
 
-    private void TurnOn()
+    protected override void TurnOn()
     {
         StartCoroutine(GameCycle());
     }
 
-    private void TurnOff()
+    protected override void TurnOff()
     {
         gameObject.GetComponent<IBuildSystem>().SetStartPos();
         StopAllCoroutines();
-    }
-
-    protected override void GameStateMachineHandler(GameMode gm)
-    {
-        switch (gm)
-        {
-            case GameMode.Game:
-                navAgent.enabled = true;
-                TurnOn();
-                break;
-            case GameMode.Default:
-                navAgent.enabled = false;
-                TurnOff();
-                break;
-        }
     }
 
     IEnumerator GameCycle()
@@ -44,29 +29,34 @@ public class GroundUnitBehaviour : AbstractUnitBehaviour
                     : UnitController.UnitsLeft,
                     transform.position);
 
+            if (!target) { yield return new WaitForSeconds(2f); break; }
+
             targetHealth = target.GetComponent<HealthController>();
 
-            while (Vector3.Distance(transform.position, target.transform.position) > attackRange)
+            do
             {
+                if (!target.activeSelf) break;
+
                 SetDuration(target.transform.position);
 
-                yield return new WaitForSeconds(0.7f);
+                yield return new WaitForSeconds(1f);
             }
+            while (Vector2.Distance(transform.position, navAgent.destination) >= attackRange);
 
-            while (targetHealth.Health > 0)
+            if (!target.activeSelf) continue;
+
+            while (targetHealth.Health > 0f)
             {
-                targetHealth.Health -= dammageValue;
+                targetHealth.Health = targetHealth.Health - dammageValue;
 
                 yield return new WaitForSeconds(attackSpeed);
             }
+
+            yield return new WaitForSeconds(2f);
         }
     }
 
 
-    protected override void OnDestroy()
-    {
-        //Pointer.clickEvent -= SetDuration;
 
-        GameStateMachine.GameModeChanged -= GameStateMachineHandler;
-    }
+
 }
