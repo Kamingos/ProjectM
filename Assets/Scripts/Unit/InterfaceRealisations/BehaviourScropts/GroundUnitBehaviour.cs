@@ -15,7 +15,6 @@ public class GroundUnitBehaviour : AbstractUnitBehaviour
 
     protected override void TurnOff()
     {
-        gameObject.GetComponent<IBuildSystem>().SetStartPos();
         StopAllCoroutines();
     }
 
@@ -23,7 +22,7 @@ public class GroundUnitBehaviour : AbstractUnitBehaviour
     {
         while (true)
         {
-            target = UnitController.TargetSearcher.FindTarget(FinderType.Nearest,
+            target = UnitController.TargetSearcher.FindTarget(FinderType.Random,
                     (GetComponent<SideController>().GetSide() == "Left")
                     ? UnitController.UnitsRight
                     : UnitController.UnitsLeft,
@@ -48,6 +47,8 @@ public class GroundUnitBehaviour : AbstractUnitBehaviour
             while (targetHealth.Health > 0f)
             {
                 targetHealth.Health = targetHealth.Health - dammageValue;
+
+                if (Vector2.Distance(transform.position, navAgent.destination) >= attackRange) break;
 
                 yield return new WaitForSeconds(attackSpeed);
             }

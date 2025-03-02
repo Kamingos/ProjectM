@@ -9,7 +9,6 @@ public class UCRei : AbstractUnitCreator
     string animController = "Test";
 
     // кэширую для удобства
-    Rigidbody rb;
     BoxCollider bc;
     NavMeshAgent nma;
     Animator animator;
@@ -23,10 +22,11 @@ public class UCRei : AbstractUnitCreator
 
         HealthController healthController = parentObj.AddComponent<HealthController>();
         HealthBarController hbc = parentObj.AddComponent<HealthBarController>();
-        DeathController dc = parentObj.AddComponent<DeathController>();
+        DamageController daC = parentObj.AddComponent<DamageController>();
+        DeathController deC = parentObj.AddComponent<DeathController>();
 
-        healthController.Init(100f,hbc,null, dc);
-        gub.Init(5f, 10f, 1.5f);
+        healthController.Init(100f,hbc, daC, deC);
+        gub.Init(2.5f, 10f, 1.5f);
         bc.Init(sdc);
         //...
 
@@ -53,10 +53,6 @@ public class UCRei : AbstractUnitCreator
         bc = model.AddComponent<BoxCollider>();
         nma = model.AddComponent<NavMeshAgent>();
         animator = model.transform.GetChild(0).AddComponent<Animator>();
-
-        // настройки RB
-        //rb.freezeRotation = true;
-        //rb.isKinematic = true;
 
         // настройки NavMeshAgent
         nma.speed = 10f;

@@ -41,7 +41,6 @@ public class UnitController : MonoBehaviour
         foreach (var item in UnitsLeft)
         {
             Destroy(item);
-            
         }
         UnitsLeft.Clear();
         foreach (var item in UnitsRight)
@@ -50,5 +49,23 @@ public class UnitController : MonoBehaviour
 
         }
         UnitsRight.Clear();
+    }
+
+    public void ResetUnits()
+    {
+        foreach (var item in UnitsLeft)
+        {
+            item.SetActive(true);
+            item.GetComponent<IBuildSystem>().SetStartPos();
+            item.GetComponent<IHealth>().ResetHP();
+            item.GetComponent<AbstractUnitBehaviour>().Reset();
+        }
+        foreach (var item in UnitsRight)
+        {
+            item.SetActive(true);
+            item.GetComponent<IBuildSystem>().SetStartPos();
+            item.GetComponent<IHealth>().ResetHP();
+            item.GetComponent<AbstractUnitBehaviour>().Reset();
+        }
     }
 }

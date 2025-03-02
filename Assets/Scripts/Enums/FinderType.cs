@@ -3,5 +3,6 @@ public enum FinderType
     Nearest,
     Further,
     Largest,
-    Smallest
+    Smallest,
+    Random
 }

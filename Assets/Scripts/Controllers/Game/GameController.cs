@@ -4,7 +4,7 @@ public class GameController : MonoBehaviour
 {
     private UnitController unitController;
     private GameUIController gameUIController;
-    private MapController mapController;
+    private MapController mapController; //TODO
 
     public void Init(UnitController _unitController, GameUIController _gameUIController, MapController _mapController)
     {
@@ -12,6 +12,7 @@ public class GameController : MonoBehaviour
         gameUIController = _gameUIController;
         mapController = _mapController;
 
+        GameStateMachine.OnRestartLevel += RestartLevel;
         gameUIController.OnBtnPressed += CreateUnit;
 
         // доп часть
@@ -24,11 +25,7 @@ public class GameController : MonoBehaviour
     {
         if (GameStateMachine.CurrentGameMode == GameMode.Default)
         {
-            //if (Input.GetKeyDown(KeyCode.Alpha1))
-            //{
-            //    unitController.CreateUnit(UnitType.Maksim);
-            //}
-            if (Input.GetMouseButtonDown(3))
+            if (Input.GetMouseButtonDown(3) || Input.GetKeyDown(KeyCode.R))
             {
                 unitController.ClearUnits();
             }
@@ -44,6 +41,11 @@ public class GameController : MonoBehaviour
                 GameStateMachine.SetDefaultMode();
             }
         }
+    }
+
+    private void RestartLevel()
+    {
+        unitController.ResetUnits();
     }
 
     private void CreateUnit(int i)

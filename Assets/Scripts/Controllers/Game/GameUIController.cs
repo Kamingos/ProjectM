@@ -15,6 +15,7 @@ public class GameUIController : MonoBehaviour
 
         gameUIView.OnBtnPressed += DoBtnAction;
 
+        GameStateMachine.OnRestartLevel += () => { };
         GameStateMachine.GameModeChanged += (_) =>
         {
             if (_ == GameMode.Default) gameUIView.ChangePanelColor(-1);

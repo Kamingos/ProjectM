@@ -12,6 +12,9 @@ public class GameUIView : MonoBehaviour
 
     [SerializeField] private TMP_Text statusText;
 
+    [SerializeField] private GameObject DefaultUI;
+    [SerializeField] private GameObject GameUI;
+
     public event Action<int> OnBtnPressed;
 
     public void Init()
@@ -45,6 +48,8 @@ public class GameUIView : MonoBehaviour
                 break;
             case GameMode.Default:
                 statusText.text = "Default";
+                DefaultUI.SetActive(true);
+                GameUI.SetActive(false);
                 break;
             case GameMode.Pause:
                 statusText.text = "Pause";
@@ -54,6 +59,8 @@ public class GameUIView : MonoBehaviour
                 break;
             case GameMode.Game:
                 statusText.text = "Game";
+                DefaultUI.SetActive(false);
+                GameUI.SetActive(true);
                 break;
         }
 

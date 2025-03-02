@@ -8,8 +8,8 @@ public class SideController : MonoBehaviour, ISideController
 
     private bool flag = true;
 
-    public Color colorLeft { get; private set; } = new Color(0.5f, 0.7f, 1);
-    public Color colorRight { get; private set; } = new Color(1f, 0.7f, 0.5f);
+    private Color colorLeft  = new Color(0.5f, 0.7f, 1);
+    private Color colorRight = new Color(1f, 0.7f, 0.5f);
 
     public void StopUpdate()
     {
@@ -26,26 +26,46 @@ public class SideController : MonoBehaviour, ISideController
 
     public void SetSide()
     {
-        //if (flag)
+        if (!flag) return;
+
+        if (side == "")
         {
-            if (side == "")
+            if (transform.position.x <= MapController.mapData.GetMapCenter().x)
             {
-                if (transform.position.x <= MapController.mapData.GetMapCenter().x)
-                {
-                    side = "Left";
-                }
-                else
-                {
-                    side = "Right";
-                }
-                //flag = false;
+                side = "Left";
             }
+            else
+            {
+                side = "Right";
+            }
+            flag = false;
+
+            SetSide(true);
+        }
+    }
+    public void SetSide(bool spec)
+    {
+        if (transform.position.x <= MapController.mapData.GetMapCenter().x)
+        {
+            material.color = colorLeft;
+            transform.eulerAngles = Vector3.up * 90f;
+        }
+        else
+        {
+            material.color = colorRight;
+            transform.eulerAngles = Vector3.down * 90f;
         }
     }
 
     public string GetSide()
     {
         return side;
+    }
+
+    public void ResetSide()
+    {
+        side = "";
+        flag = true;
     }
 
     //IEnumerator process()
@@ -58,14 +78,18 @@ public class SideController : MonoBehaviour, ISideController
             if (transform.position.x <= MapController.mapData.GetMapCenter().x)
             {
                 material.color = colorLeft;
+                transform.eulerAngles = Vector3.up * 90f;
             }
             else
             {
                 material.color = colorRight;
+                transform.eulerAngles = Vector3.down * 90f;
             }
 
         }
         //yield return new WaitForSeconds(Time.deltaTime);
 
     }
+
+
 }

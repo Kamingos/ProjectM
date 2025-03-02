@@ -20,6 +20,11 @@ abstract public class AbstractUnitBehaviour : MonoBehaviour, IUnitController
         GameStateMachine.GameModeChanged += GameStateMachineHandler;
     }
 
+    public void Reset()
+    {
+        navAgent.enabled = false;
+    }
+
     protected void GameStateMachineHandler(GameMode gm)
     {
         switch (gm)
